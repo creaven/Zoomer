@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" version="-//W3C//DTD XHTML 1.1//EN" xml:lang="en">
+	<head>
+		<title>Zoomer</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="mootools.js"></script>
+		<script type="text/javascript" src="../Source/Zoomer.js"></script>
+		<script type="text/javascript">
+			window.addEvent('load', function(){
+				new Zoomer('small');
+				new Zoomer('girl', {
+					big: 'girl.jpg',
+					smooth: 10
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h2>Homer</h2>
+		<img src="gomer-small.jpg" id="small" big="gomer.jpg"/>
+		<br><br>
+		<h2>Queen</h2>
+		<img src="girl-thumb.jpg" id="girl"/>
+	</body>
+</html>

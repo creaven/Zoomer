@@ -1,0 +1,20 @@
+name: Zoomer
+ 
+web: [http://github.com/creaven/Zoomer/](http://github.com/creaven/Zoomer/)
+ 
+description: shows zoomed image inside original
+ 
+authors: [Anton Samoylov](http://mifjs.net.net)
+ 
+license: MIT License
+ 
+copyright: &copy; [Anton Samoylov](http://mifjs.net)
+ 
+author: moro    
+ 
+category: Effects
+ 
+tags: [image, zoom]
+ 
+sources:
+  - "Source/Zoomer.js"
