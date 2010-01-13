@@ -50,7 +50,7 @@ var Zoomer = new Class({
 	},
 	
 	prepareSmall: function(){
-		this.wrapper = new Element('div', {'class': 'moozoom-wrapper'}).wraps(this.small).setStyles({
+		this.wrapper = new Element('div', {'class': 'zoomer'}).wraps(this.small).setStyles({
 			width: this.small.offsetWidth,
 			height: this.small.offsetHeight,
 			position: 'relative',
