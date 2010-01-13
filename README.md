@@ -6,6 +6,9 @@ Zoomer is simple and nice image zoom class. It's shows zoomed image inside origi
 
 How to use
 ----------
+
+[demo](http://mifjs.net/misc/zoomer/)
+
 Example 1:
 
 html:
