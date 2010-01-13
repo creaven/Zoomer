@@ -12,7 +12,7 @@ How to use
 Example 1:
 
 html:
-	<img src="gomer-small.jpg" id="homer" big="gomer.jpg"/>
+	&lt;img src="gomer-small.jpg" id="homer" big="gomer.jpg"/&gt;
 js:
 	new Zoomer('homer');
 	
@@ -21,7 +21,7 @@ big attribute - big image src.
 Example 2:
 
 html:
-	<img src="girl-thumb.jpg" id="girl"/>
+	&lt;img src="girl-thumb.jpg" id="girl"/&gt;
 js:
 	new Zoomer('girl', {
 		big: 'girl.jpg',
