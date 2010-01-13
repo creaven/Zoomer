@@ -18,3 +18,7 @@ tags: [image, zoom]
  
 sources:
   - "Source/Zoomer.js"
+
+demo: http://mifjs.net/misc/zoomer/
+
+current: 1.0
