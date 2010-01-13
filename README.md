@@ -9,25 +9,32 @@ How to use
 
 [demo](http://mifjs.net/misc/zoomer/)
 
-Example 1:
+*Example 1:*
 
-html:
-	&lt;img src="gomer-small.jpg" id="homer" big="gomer.jpg"/&gt;
-js:
+html
+
+	<img src="gomer-small.jpg" id="homer" big="gomer.jpg"/>
+js
+
 	new Zoomer('homer');
 	
 big attribute - big image src.
 
-Example 2:
 
-html:
-	&lt;img src="girl-thumb.jpg" id="girl"/&gt;
-js:
+*Example 2:*
+
+html
+
+	<img src="girl-thumb.jpg" id="girl"/>
+	
+js
+
 	new Zoomer('girl', {
 		big: 'girl.jpg',
 		smooth: 10
 	});
 	
 options:
-- *big* - big image src
-- *smooth*(integer) - smooth 
+
+* **big** - big image src
+* **smooth**(integer) - smooth 
