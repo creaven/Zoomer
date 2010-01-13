@@ -14,7 +14,7 @@ provides: Zoomer
 
 var Zoomer = new Class({
 	
-	version: 1.3,
+	version: 1.4,
 	
 	Implements: [Options],
 	
