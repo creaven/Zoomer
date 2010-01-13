@@ -7,6 +7,7 @@ Zoomer is simple and nice image zoom class. It's shows zoomed image inside origi
 How to use
 ----------
 Example 1:
+
 html:
 	<img src="gomer-small.jpg" id="homer" big="gomer.jpg"/>
 js:
@@ -15,6 +16,7 @@ js:
 big attribute - big image src.
 
 Example 2:
+
 html:
 	<img src="girl-thumb.jpg" id="girl"/>
 js:
