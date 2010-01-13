@@ -18,7 +18,7 @@ js
 
 	new Zoomer('homer');
 	
-big attribute - big image src.
+**big** attribute - big image src.
 
 
 *Example 2:*
