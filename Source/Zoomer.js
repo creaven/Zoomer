@@ -88,6 +88,10 @@ var Zoomer = new Class({
 		});
 	},
 	
+	move: function(event){
+		this.dstPos = event.page;
+	},
+	
 	startZoom: function(){
 		this.position = this.wrapper.getPosition();
 		this.timer = this.zoom.periodical(10, this);
@@ -97,10 +101,6 @@ var Zoomer = new Class({
 	stopZoom: function(){
 		$clear(this.timer);
 		this.big.fade('out');
-	},
-	
-	move: function(event){
-		this.dstPos = event.page;
 	},
 	
 	zoom: function(){
