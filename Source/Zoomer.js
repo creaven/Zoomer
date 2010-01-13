@@ -50,7 +50,7 @@ var Zoomer = new Class({
 	},
 	
 	prepareSmall: function(){
-		this.wrapper = new Element('div', {'class': 'zoomer'}).wraps(this.small).setStyles({
+		this.wrapper = new Element('div', {'class': 'zoomer-wrapper'}).wraps(this.small).setStyles({
 			width: this.small.offsetWidth,
 			height: this.small.offsetHeight,
 			position: 'relative',
@@ -81,6 +81,11 @@ var Zoomer = new Class({
 	
 	ready: function(){
 		this.big.inject(this.wrapper);
+		new Element('div', {'class': 'zoomer-wrapper-big'}).setStyles({
+			position: 'absolute',
+			top: 0,
+			left: 0
+		}).wraps(this.big);
 		this.wrapper.addEvents({
 			mouseenter: this.startZoom.bind(this),
 			mouseleave: this.stopZoom.bind(this),
