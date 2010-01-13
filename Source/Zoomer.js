@@ -84,13 +84,13 @@ var Zoomer = new Class({
 		this.wrapper.addEvents({
 			mouseenter: this.startZoom.bind(this),
 			mouseleave: this.stopZoom.bind(this),
-			mousemove: this.zoom.bind(this)
+			mousemove: this.move.bind(this)
 		});
 	},
 	
 	startZoom: function(){
 		this.position = this.wrapper.getPosition();
-		this.timer = this.move.periodical(10, this);
+		this.timer = this.zoom.periodical(10, this);
 		this.big.fade('in');
 	},
 	
@@ -99,11 +99,11 @@ var Zoomer = new Class({
 		this.big.fade('out');
 	},
 	
-	zoom: function(event){
+	move: function(event){
 		this.dstPos = event.page;
 	},
 	
-	move: function(){
+	zoom: function(){
 		var steps = this.options.smooth;
 		var current = {
 			left: this.big.getStyle('left').toInt(),
