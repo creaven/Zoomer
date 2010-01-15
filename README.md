@@ -13,9 +13,11 @@ How to use
 
 html
 
+	#html
 	<img src="gomer-small.jpg" id="homer" big="gomer.jpg"/>
 js
 
+	#js
 	new Zoomer('homer');
 	
 **big** attribute - big image src.
@@ -25,10 +27,12 @@ js
 
 html
 
+	#html
 	<img src="girl-thumb.jpg" id="girl"/>
 	
 js
 
+	#js
 	new Zoomer('girl', {
 		big: 'girl.jpg',
 		smooth: 10
