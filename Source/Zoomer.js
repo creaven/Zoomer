@@ -123,6 +123,7 @@ var Zoomer = new Class({
 	},
 	
 	zoom: function(){
+		if(!this.dstPos) return;
 		var steps = this.options.smooth;
 		var current = {
 			left: this.big.getStyle('left').toInt(),
