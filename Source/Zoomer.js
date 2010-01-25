@@ -50,7 +50,18 @@ var Zoomer = new Class({
 	},
 	
 	prepareSmall: function(){
-		this.wrapper = new Element('div', {'class': 'zoomer-wrapper'}).wraps(this.small).setStyles({
+		this.wrapper = new Element('div', {'class': 'zoomer-wrapper'}).wraps(this.small);
+		['margin', 'left', 'top', 'bottom', 'right', 'float', 'clear', 'border', 'padding'].each(function(p){
+			var style = this.small.getStyle(p);
+			var dflt = 'auto';
+			if(['float', 'clear', 'border'].contains(p)) dflt = 'none';
+			if(p == 'padding') dflt = '0';
+			try{
+				this.small.setStyle(p, dflt);
+				this.wrapper.setStyle(p, style);
+			}catch(e){};
+		}, this);
+		this.wrapper.setStyles({
 			width: this.small.offsetWidth,
 			height: this.small.offsetHeight,
 			position: 'relative',
@@ -81,12 +92,15 @@ var Zoomer = new Class({
 	
 	ready: function(){
 		this.big.inject(this.wrapper);
-		new Element('div', {'class': 'zoomer-wrapper-big'}).setStyles({
+		this.bigWrapper = new Element('div', {'class': 'zoomer-wrapper-big'}).setStyles({
 			position: 'absolute',
-			top: 0,
-			left: 0
+			overflow: 'hidden',
+			top: this.small.offsetTop,
+			left: this.small.offsetLeft,
+			width: this.small.offsetWidth,
+			height: this.small.offsetHeight
 		}).wraps(this.big);
-		this.wrapper.addEvents({
+		this.bigWrapper.addEvents({
 			mouseenter: this.startZoom.bind(this),
 			mouseleave: this.stopZoom.bind(this),
 			mousemove: this.move.bind(this)
@@ -98,7 +112,7 @@ var Zoomer = new Class({
 	},
 	
 	startZoom: function(){
-		this.position = this.wrapper.getPosition();
+		this.position = this.small.getPosition();
 		this.timer = this.zoom.periodical(10, this);
 		this.big.fade('in');
 	},
