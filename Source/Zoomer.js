@@ -33,12 +33,15 @@ var Zoomer = new Class({
 			this.prepareSmall();
 		}
 		var src = this.options.big || this.small.get('big');
-		this.big = new Element('img', {src: src}).setStyles({
-			position: 'absolute',
-			top: 0,
-			left: 0,
-			opacity: 0,
-			cursor: 'crosshair'
+		this.big = new Element('img', {
+			src: src,
+			styles: {
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				opacity: 0,
+				cursor: 'crosshair'
+			}
 		});
 		if(!this.big.complete){
 			this.big.addEvent('load', function(){
@@ -92,20 +95,23 @@ var Zoomer = new Class({
 	
 	ready: function(){
 		this.big.inject(this.wrapper);
-		this.bigWrapper = new Element('div', {'class': 'zoomer-wrapper-big'}).setStyles({
-			position: 'absolute',
-			overflow: 'hidden',
-			top: this.small.offsetTop,
-			left: this.small.offsetLeft,
-			width: this.small.offsetWidth,
-			height: this.small.offsetHeight,
-			background: 'url(_)'
+		this.bigWrapper = new Element('div', {
+			'class': 'zoomer-wrapper-big',
+			styles: {
+				position: 'absolute',
+				overflow: 'hidden',
+				top: this.small.offsetTop,
+				left: this.small.offsetLeft,
+				width: this.small.offsetWidth,
+				height: this.small.offsetHeight,
+				background: 'url(_)',
+			},
+			events: {
+				mouseenter: this.startZoom.bind(this),
+				mouseleave: this.stopZoom.bind(this),
+				mousemove: this.move.bind(this)
+			}
 		}).wraps(this.big);
-		this.bigWrapper.addEvents({
-			mouseenter: this.startZoom.bind(this),
-			mouseleave: this.stopZoom.bind(this),
-			mousemove: this.move.bind(this)
-		});
 	},
 	
 	move: function(event){
@@ -114,6 +120,17 @@ var Zoomer = new Class({
 	
 	startZoom: function(){
 		this.position = this.small.getPosition();
+		
+		/** precalculations **/
+		this.ratio = {
+			x : 1 - this.bigSize.width / this.smallSize.width,
+			y : 1 - this.bigSize.height / this.smallSize.height
+		}
+		this.current = {
+			left: this.big.getStyle('left').toInt(),
+			top: this.big.getStyle('top').toInt()
+		}
+		
 		this.timer = this.zoom.periodical(10, this);
 		this.big.fade('in');
 	},
@@ -126,19 +143,18 @@ var Zoomer = new Class({
 	zoom: function(){
 		if(!this.dstPos) return;
 		var steps = this.options.smooth;
-		var current = {
-			left: this.big.getStyle('left').toInt(),
-			top: this.big.getStyle('top').toInt()
-		};
+		
+		var current = this.current;
+		
 		var dst = {
-			left: parseInt((this.dstPos.x - this.position.x) * (1 - this.bigSize.width/this.smallSize.width)),
-			top: parseInt((this.dstPos.y - this.position.y) * (1 - this.bigSize.height/this.smallSize.height))
+			left: parseInt((this.dstPos.x - this.position.x) * this.ratio.x),
+			top: parseInt((this.dstPos.y - this.position.y) * this.ratio.y)
 		};
-		var now = {
-			left: current.left - (current.left - dst.left)/steps,
-			top:  current.top - (current.top - dst.top)/steps
-		};
-		this.big.setStyles(now);
+		
+		this.current.left-= (current.left - dst.left) / steps;
+		this.current.top-= (current.top - dst.top) / steps;
+		
+		this.big.setStyles(this.current);
 	}
 	
 });
