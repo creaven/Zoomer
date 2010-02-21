@@ -14,7 +14,7 @@ provides: Zoomer
 
 var Zoomer = new Class({
 	
-	version: '1.7',
+	version: '1.8',
 	
 	Implements: [Options],
 	
@@ -100,11 +100,11 @@ var Zoomer = new Class({
 			styles: {
 				position: 'absolute',
 				overflow: 'hidden',
-				top: this.small.offsetTop,
-				left: this.small.offsetLeft,
+				top: this.small.getPosition().y - this.wrapper.getPosition().y - this.wrapper.getStyle('border-top-width').toInt(),
+				left: this.small.getPosition().x - this.wrapper.getPosition().x - this.wrapper.getStyle('border-left-width').toInt(),
 				width: this.small.offsetWidth,
 				height: this.small.offsetHeight,
-				background: 'url(_)',
+				background: 'url(_)'
 			},
 			events: {
 				mouseenter: this.startZoom.bind(this),
@@ -123,8 +123,8 @@ var Zoomer = new Class({
 		
 		/** precalculations **/
 		this.ratio = {
-			x : 1 - this.bigSize.width / this.smallSize.width,
-			y : 1 - this.bigSize.height / this.smallSize.height
+			x: 1 - this.bigSize.width / this.smallSize.width,
+			y: 1 - this.bigSize.height / this.smallSize.height
 		}
 		this.current = {
 			left: this.big.getStyle('left').toInt(),
@@ -142,17 +142,14 @@ var Zoomer = new Class({
 	
 	zoom: function(){
 		if(!this.dstPos) return;
+		
 		var steps = this.options.smooth;
-		
-		var current = this.current;
-		
 		var dst = {
 			left: parseInt((this.dstPos.x - this.position.x) * this.ratio.x),
 			top: parseInt((this.dstPos.y - this.position.y) * this.ratio.y)
 		};
-		
-		this.current.left-= (current.left - dst.left) / steps;
-		this.current.top-= (current.top - dst.top) / steps;
+		this.current.left -= (this.current.left - dst.left) / steps;
+		this.current.top -= (this.current.top - dst.top) / steps;
 		
 		this.big.setStyles(this.current);
 	}
