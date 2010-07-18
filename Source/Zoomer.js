@@ -113,7 +113,8 @@ var Zoomer = new Class({
 				left: this.small.getPosition().x - this.wrapper.getPosition().x - this.wrapper.getStyle('border-left-width').toInt(),
 				width: this.small.offsetWidth,
 				height: this.small.offsetHeight,
-				background: 'url(_)'
+				background: 'url(_)',
+				'z-index': this.small.getStyle('z-index').toInt() +1
 			},
 			events: {
 				mouseenter: this.startZoom.bind(this),
