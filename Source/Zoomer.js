@@ -33,16 +33,25 @@ var Zoomer = new Class({
 			this.prepareSmall();
 		}
 		var src = this.options.big || this.small.get('big');
-		this.big = new Element('img', {
-			src: src,
-			styles: {
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				opacity: 0,
-				cursor: 'crosshair'
-			}
-		});
+		
+		var styles = {
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			opacity: 0,
+			cursor: 'crosshair'
+		};
+				
+		if (typeof src == 'string') {
+			this.big = new Element('img', {
+				src: src,
+				styles: styles
+			});
+		} else {
+			this.big = src;
+			this.big.setStyles(styles);
+		}
+		
 		if(!this.big.complete){
 			this.big.addEvent('load', function(){
 				this.prepareBig();
