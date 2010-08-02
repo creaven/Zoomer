@@ -14,7 +14,7 @@ provides: Zoomer
 
 var Zoomer = new Class({
 	
-	version: '1.8',
+	version: '1.9',
 	
 	Implements: [Options],
 	
@@ -114,7 +114,7 @@ var Zoomer = new Class({
 				width: this.small.offsetWidth,
 				height: this.small.offsetHeight,
 				background: 'url(_)',
-				'z-index': this.small.getStyle('z-index').toInt() +1
+				'z-index': (this.small.getStyle('z-index').toInt() || 0) +1
 			},
 			events: {
 				mouseenter: this.startZoom.bind(this),
@@ -131,15 +131,15 @@ var Zoomer = new Class({
 	startZoom: function(){
 		this.position = this.small.getPosition();
 		
-		/** precalculations **/
 		this.ratio = {
 			x: 1 - this.bigSize.width / this.smallSize.width,
 			y: 1 - this.bigSize.height / this.smallSize.height
-		}
+		};
+		
 		this.current = {
 			left: this.big.getStyle('left').toInt(),
 			top: this.big.getStyle('top').toInt()
-		}
+		};
 		
 		this.timer = this.zoom.periodical(10, this);
 		this.big.fade('in');
@@ -155,8 +155,8 @@ var Zoomer = new Class({
 		
 		var steps = this.options.smooth;
 		var dst = {
-			left: parseInt((this.dstPos.x - this.position.x) * this.ratio.x),
-			top: parseInt((this.dstPos.y - this.position.y) * this.ratio.y)
+			left: parseInt((this.dstPos.x - this.position.x) * this.ratio.x, 10),
+			top: parseInt((this.dstPos.y - this.position.y) * this.ratio.y, 10)
 		};
 		this.current.left -= (this.current.left - dst.left) / steps;
 		this.current.top -= (this.current.top - dst.top) / steps;
