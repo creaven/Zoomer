@@ -40,5 +40,5 @@ js
 	
 options:
 
-* **big** - big image src or image elmeent
+* **big** - big image src or image element
 * **smooth**(integer) - smooth 
