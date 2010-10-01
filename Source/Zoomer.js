@@ -14,7 +14,7 @@ provides: Zoomer
 
 var Zoomer = new Class({
 	
-	version: '1.9.2',
+	version: '1.9.3',
 	
 	Implements: [Options],
 	
@@ -22,11 +22,11 @@ var Zoomer = new Class({
 		smooth: 6
 	},
 	
-	initialize: function(element, options){
+	initialize: function(element, options) {
 		this.setOptions(options);
 		this.small = document.id(element);
-		if (!this.small.complete){
-			this.small.addEvent('load', function(){
+		if(!this.small.complete) {
+			this.small.addEvent('load', function() {
 				this.prepareSmall();
 			}.bind(this));
 		} else {
@@ -42,7 +42,7 @@ var Zoomer = new Class({
 			cursor: 'crosshair'
 		};
 				
-		if (typeof src == 'string'){
+		if (typeof src == 'string') {
 			this.big = new Element('img', {
 				src: src,
 				styles: styles
@@ -52,8 +52,8 @@ var Zoomer = new Class({
 			this.big.setStyles(styles);
 		}
 		
-		if (!this.big.complete){
-			this.big.addEvent('load', function(){
+		if(!this.big.complete) {
+			this.big.addEvent('load', function() {
 				this.prepareBig();
 			}.bind(this));
 		} else {
@@ -61,17 +61,17 @@ var Zoomer = new Class({
 		}
 	},
 	
-	prepareSmall: function(){
+	prepareSmall: function() {
 		this.wrapper = new Element('div', {'class': 'zoomer-wrapper'}).wraps(this.small);
-		['margin', 'left', 'top', 'bottom', 'right', 'float', 'clear', 'border', 'padding'].each(function(p){
+		['margin', 'left', 'top', 'bottom', 'right', 'float', 'clear', 'border', 'padding'].each(function(p) {
 			var style = this.small.getStyle(p);
 			var dflt = 'auto';
-			if (['float', 'clear', 'border'].contains(p)) dflt = 'none';
-			if (p == 'padding') dflt = '0';
+			if(['float', 'clear', 'border'].contains(p)) dflt = 'none';
+			if(p == 'padding') dflt = '0';
 			try {
 				this.small.setStyle(p, dflt);
 				this.wrapper.setStyle(p, style);
-			} catch(e){};
+			} catch(e) {};
 		}, this);
 		this.wrapper.setStyles({
 			width: this.small.offsetWidth,
@@ -83,20 +83,26 @@ var Zoomer = new Class({
 			width: this.small.width,
 			height: this.small.height
 		};
-		if (this.bigPrepared) this.ready();
-		else this.smallPrepared = true;
+		if(this.bigPrepared) {
+			this.ready();
+		} else {
+			this.smallPrepared = true;
+		}
 	},
 	
-	prepareBig: function(){
+	prepareBig: function() {
 		this.bigSize = {
 			width: this.big.width,
 			height: this.big.height
 		};
-		if (this.smallPrepared) this.ready();
-		else this.bigPrepared = true;
+		if(this.smallPrepared) {
+			this.ready();
+		} else {
+			this.bigPrepared = true;
+		}
 	},
 	
-	ready: function(){
+	ready: function() {
 		this.big.inject(this.wrapper);
 		this.bigWrapper = new Element('div', {
 			'class': 'zoomer-wrapper-big',
@@ -118,11 +124,11 @@ var Zoomer = new Class({
 		}).wraps(this.big);
 	},
 	
-	move: function(event){
+	move: function(event) {
 		this.dstPos = event.page;
 	},
 	
-	startZoom: function(){
+	startZoom: function() {
 		this.position = this.small.getPosition();
 		
 		this.ratio = {
@@ -139,13 +145,13 @@ var Zoomer = new Class({
 		this.big.fade('in');
 	},
 	
-	stopZoom: function(){
+	stopZoom: function() {
 		$clear(this.timer);
 		this.big.fade('out');
 	},
 	
-	zoom: function(){
-		if (!this.dstPos) return;
+	zoom: function() {
+		if(!this.dstPos) return;
 		
 		var steps = this.options.smooth;
 		var dst = {
