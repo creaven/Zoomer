@@ -6,7 +6,7 @@ description: Class to show zoomed image inside original
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)
 authors: Anton Samoylov (http://mifjs.net)
-requires: core:1.2.4:*
+requires: [Core/Class.Extras, Core/Element.Style, Core/Element.Dimensions, Core/Element.Event, Core/Fx.Tween]
 provides: Zoomer
  
 ...
@@ -25,11 +25,11 @@ var Zoomer = new Class({
 	initialize: function(element, options){
 		this.setOptions(options);
 		this.small = document.id(element);
-		if(!this.small.complete){
+		if (!this.small.complete){
 			this.small.addEvent('load', function(){
 				this.prepareSmall();
 			}.bind(this));
-		}else{
+		} else {
 			this.prepareSmall();
 		}
 		var src = this.options.big || this.small.get('big');
@@ -42,7 +42,7 @@ var Zoomer = new Class({
 			cursor: 'crosshair'
 		};
 				
-		if (typeof src == 'string') {
+		if (typeof src == 'string'){
 			this.big = new Element('img', {
 				src: src,
 				styles: styles
@@ -52,11 +52,11 @@ var Zoomer = new Class({
 			this.big.setStyles(styles);
 		}
 		
-		if(!this.big.complete){
+		if (!this.big.complete){
 			this.big.addEvent('load', function(){
 				this.prepareBig();
 			}.bind(this));
-		}else{
+		} else {
 			this.prepareBig();
 		}
 	},
@@ -66,12 +66,12 @@ var Zoomer = new Class({
 		['margin', 'left', 'top', 'bottom', 'right', 'float', 'clear', 'border', 'padding'].each(function(p){
 			var style = this.small.getStyle(p);
 			var dflt = 'auto';
-			if(['float', 'clear', 'border'].contains(p)) dflt = 'none';
-			if(p == 'padding') dflt = '0';
-			try{
+			if (['float', 'clear', 'border'].contains(p)) dflt = 'none';
+			if (p == 'padding') dflt = '0';
+			try {
 				this.small.setStyle(p, dflt);
 				this.wrapper.setStyle(p, style);
-			}catch(e){};
+			} catch(e){};
 		}, this);
 		this.wrapper.setStyles({
 			width: this.small.offsetWidth,
@@ -83,11 +83,8 @@ var Zoomer = new Class({
 			width: this.small.width,
 			height: this.small.height
 		};
-		if(this.bigPrepared){
-			this.ready();
-		}else{
-			this.smallPrepared = true;
-		}
+		if (this.bigPrepared) this.ready();
+		else this.smallPrepared = true;
 	},
 	
 	prepareBig: function(){
@@ -95,11 +92,8 @@ var Zoomer = new Class({
 			width: this.big.width,
 			height: this.big.height
 		};
-		if(this.smallPrepared){
-			this.ready();
-		}else{
-			this.bigPrepared = true;
-		}
+		if (this.smallPrepared) this.ready();
+		else this.bigPrepared = true;
 	},
 	
 	ready: function(){
@@ -151,7 +145,7 @@ var Zoomer = new Class({
 	},
 	
 	zoom: function(){
-		if(!this.dstPos) return;
+		if (!this.dstPos) return;
 		
 		var steps = this.options.smooth;
 		var dst = {
